@@ -14,41 +14,53 @@
 </head>
 <body>
 	<script>
-	
+
 	// create an new instance of a pixi stage
 	var stage = new PIXI.Stage(0x66FF99);
-	
+
 	// create a renderer instance
 	var renderer = PIXI.autoDetectRenderer(400, 300);
-	
+
 	// add the renderer view element to the DOM
 	document.body.appendChild(renderer.view);
-	
+
 	requestAnimFrame( animate );
-	
-	// create a texture from an image path
-	var texture = PIXI.Texture.fromImage("bunny.png");
+
+
+	// create a texture from an image path, ImageLoader ( url  crossorigin )
+	/**
+ * The image loader class is responsible for loading images file formats ('jpeg', 'jpg', 'png' and 'gif')
+ * Once the image has been loaded it is stored in the PIXI texture cache and can be accessed though PIXI.Texture.fromFrame() and PIXI.Sprite.fromFrame()
+ * When loaded this class will dispatch a 'loaded' event
+ *
+ * @class ImageLoader
+ * @uses EventTarget
+ * @constructor
+ * @param url {String} The url of the image
+ * @param crossorigin {Boolean} Whether requests should be treated as crossorigin
+ */
+	var texture = PIXI.Texture.fromImage("https://lh3.googleusercontent.com/-DZWdQdfqhD0/VH3okGCpocI/AAAAAAAAALA/VeWHZzMdJmY/h120/bunny.png", true);
 	// create a new Sprite using the texture
 	var bunny = new PIXI.Sprite(texture);
-	
+
 	// center the sprites anchor point
 	bunny.anchor.x = 0.5;
 	bunny.anchor.y = 0.5;
-	
+
 	// move the sprite t the center of the screen
 	bunny.position.x = 200;
 	bunny.position.y = 150;
-	
+
 	stage.addChild(bunny);
-	
+
 	function animate() {
-	
+
 	    requestAnimFrame( animate );
-	
+
 	    // just for fun, lets rotate mr rabbit a little
 	    bunny.rotation += 0.1;
-		
-	    // render the stage   
+
+	    // render the stage
 	    renderer.render(stage);
 	}
 
